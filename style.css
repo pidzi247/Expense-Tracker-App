@@ -1,0 +1,32 @@
+body,
+html {
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  width: 100%;
+  height: 100vh;
+  background-color: antiquewhite;
+}
+
+.month {
+  height: 5%;
+  background-color: burlywood;
+}
+
+.expensesPanel {
+  width: 15%;
+  height: 100%;
+  background-color: blue;
+  display: flex;
+  flex-direction: column;
+  
+}
+
+.expenseItem {
+  flex: 1 1 0;
+  border-bottom: 1px solid black;
+  text-align: center;
+  padding-top: 50%;
+}

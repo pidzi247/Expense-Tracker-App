@@ -4,29 +4,42 @@ html {
   padding: 0;
 }
 
-.container {
+#month {
   width: 100%;
-  height: 100vh;
-  background-color: antiquewhite;
-}
-
-.month {
-  height: 5%;
+  height: 5vh;
   background-color: burlywood;
 }
 
-.expensesPanel {
-  width: 15%;
-  height: 100%;
-  background-color: blue;
+#container {
+  width: 100%;
+  height: 100vh;
+  background-color: antiquewhite;
+  overflow-y: hidden;
   display: flex;
-  flex-direction: column;
-  
+}
+
+#expensesPanel {
+  background-color: blue;
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  grid-template-rows: repeat(5, 1fr);
+  height: 100%;
+  width: 20%;
 }
 
 .expenseItem {
-  flex: 1 1 0;
   border-bottom: 1px solid black;
-  text-align: center;
-  padding-top: 50%;
+  display: flex;
+  align-items: center;
+}
+
+#weeks {
+  display: grid;
+  height: 100%;
+  width: 80%;
+}
+
+.newWeek {
+  background-color: blueviolet;
+  border-right: 1px solid black;
 }

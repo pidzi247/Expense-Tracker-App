@@ -11,16 +11,20 @@ function loadWeeks() {
   const currentMonthWeekCount = weekCount(currentYear, currentMonth);
 
   weeks.style.gridTemplateColumns =  `repeat(${currentMonthWeekCount}, 1fr)`;
-  weeks.style.gridTemplateRows = `repeat(5, ${expenseItem.offsetHeight})`;
 
-  for( let i = 0; i < currentMonthWeekCount * currentMonthWeekCount; i++) {
+  for( let i = 0; i < currentMonthWeekCount * 6; i++) {
     const newWeek = document.createElement("div");
     const addNewItem = document.createElement("button");
+    const zoomDetails = document.createElement("div");
     addNewItem.innerText = "+"
     newWeek.classList.add("newWeek");
     addNewItem.classList.add("add");
+    zoomDetails.classList.add("fa-solid");
+    zoomDetails.classList.add("fa-magnifying-glass");
+    zoomDetails.classList.add("fa-2xl");
     weeks.appendChild(newWeek);
     newWeek.appendChild(addNewItem);
+    newWeek.appendChild(zoomDetails);
 
     newWeek.addEventListener('mouseover', () => {
       newWeek.classList.add("active");

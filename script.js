@@ -14,7 +14,7 @@ function loadWeeks() {
 
   const currentMonthWeekCount = weekCount(currentYear, currentMonth);
 
-  weeks.style.gridTemplateColumns = `repeat(${currentMonthWeekCount}, 1fr)`;
+  weeks.style.gridTemplateColumns = `repeat(${currentMonthWeekCount+1}, 1fr)`;
 
   for (let i = 0; i < currentMonthWeekCount * 6; i++) {
     const newWeek = document.createElement("div");

@@ -6,17 +6,20 @@ const container = document.getElementById("container");
 const month = document.getElementById("month");
 const weeks = document.getElementById("weeks");
 const expenseItem = document.querySelector("#expensesPanel > .expenseItem");
+const weeksInfo = document.getElementById("weeksInfo");
 
-function loadWeeks() {
+function load() {
   const dt = new Date();
   const currentMonth = dt.getMonth();
   const currentYear = dt.getFullYear();
 
+
   const currentMonthWeekCount = weekCount(currentYear, currentMonth);
 
   weeks.style.gridTemplateColumns = `repeat(${currentMonthWeekCount+1}, 1fr)`;
+  weeksInfo.style.gridTemplateColumns = `repeat(${currentMonthWeekCount+1}, 1fr)`;
 
-  for (let i = 0; i < currentMonthWeekCount * 6; i++) {
+  for (let i = 0; i < (currentMonthWeekCount+1) * 6; i++) {
     const newWeek = document.createElement("div");
     const addNewItem = document.createElement("button");
     const zoomDetails = document.createElement("div");
@@ -40,6 +43,17 @@ function loadWeeks() {
       newWeek.classList.remove("active");
     });
   }
+
+  for(let i = 0; i < currentMonthWeekCount + 1; i++) {
+    const weekNum = document.createElement("div");
+    weekNum.classList.add("weekNum");
+    if(i === currentMonthWeekCount) {
+      weekNum.innerText = `Total`
+    } else {
+    weekNum.innerText = `Week ${i+1}`
+    }
+    weeksInfo.appendChild(weekNum);
+  }
 }
 
 function weekCount(year, month_number) {
@@ -51,4 +65,4 @@ function weekCount(year, month_number) {
   return Math.ceil(used / 7);
 }
 
-loadWeeks();
+load();

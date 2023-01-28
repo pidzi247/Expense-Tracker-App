@@ -13,6 +13,8 @@ function load() {
   const currentMonth = dt.getMonth();
   const currentYear = dt.getFullYear();
 
+  month.innerText = `${dt.toLocaleDateString('en-us', { month: 'long' })} ${currentYear}`;
+
 
   const currentMonthWeekCount = weekCount(currentYear, currentMonth);
 
@@ -28,7 +30,6 @@ function load() {
     addNewItem.classList.add("add");
     zoomDetails.classList.add("fa-solid");
     zoomDetails.classList.add("fa-magnifying-glass-plus");
-    zoomDetails.classList.add("fa-inverse");
 
     weeks.appendChild(newWeek);
     newWeek.appendChild(addNewItem);

@@ -7,6 +7,8 @@ const month = document.getElementById("date");
 const weeks = document.getElementById("weeks");
 const expenseItem = document.querySelector("#expensesPanel > .expenseItem");
 const weeksInfo = document.getElementById("weeksInfo");
+const newEventModal = document.getElementById("newEventModal");
+const backDrop = document.getElementById("backDrop");
 
 function load() {
   const dt = new Date();
@@ -44,7 +46,7 @@ function load() {
       newWeek.classList.remove("active");
     });
 
-    addNewItem.addEventListener('click', () =>{})
+    addNewItem.addEventListener('click', openModal)
   }
 
   for(let i = 0; i < currentMonthWeekCount + 1; i++) {
@@ -66,6 +68,11 @@ function weekCount(year, month_number) {
   var used = firstOfMonth.getDay() + lastOfMonth.getDate();
 
   return Math.ceil(used / 7);
+}
+
+function openModal() {
+  newEventModal.style.display = 'block';
+  backDrop.style.display = 'block';
 }
 
 load();

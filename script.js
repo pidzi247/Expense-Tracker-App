@@ -3,7 +3,7 @@ let events = localStorage.getItem("events")
   : [];
 
 const container = document.getElementById("container");
-const month = document.getElementById("month");
+const month = document.getElementById("date");
 const weeks = document.getElementById("weeks");
 const expenseItem = document.querySelector("#expensesPanel > .expenseItem");
 const weeksInfo = document.getElementById("weeksInfo");
@@ -43,6 +43,8 @@ function load() {
     newWeek.addEventListener("mouseout", () => {
       newWeek.classList.remove("active");
     });
+
+    addNewItem.addEventListener('click', () =>{})
   }
 
   for(let i = 0; i < currentMonthWeekCount + 1; i++) {

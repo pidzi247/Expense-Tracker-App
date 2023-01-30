@@ -50,8 +50,23 @@
     </div>
     <div id="newEventModal">
       <h3>Add New Expense</h3>
-      <input type="text">
-      <input type="date" name="" id="">
+
+      <label for="expanseValue">Amount</label>
+      <input type="number" name="expenseValue" id="expenseValue" />
+
+      <label for="eventDate">Date</label>
+      <input type="date" name="eventDate" id="eventDate" />
+
+      <label for="description">Description</label>
+      <textarea
+        name="description"
+        id="description"
+        cols="20"
+        rows="10"
+      ></textarea>
+
+      <button id="saveButton">Save</button>
+      <button id="cancelButton">Cancel</button>
     </div>
     <div id="backDrop"></div>
   </body>

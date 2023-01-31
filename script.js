@@ -12,12 +12,17 @@ const backDrop = document.getElementById("backDrop");
 const newEventValue = document.getElementById("expenseValue");
 const newEventDate = document.getElementById("eventDate");
 const newEventDescription = document.getElementById("description");
+const newIndex = document.getElementById("index");
+
 
 function load() {
   const dt = new Date();
+  const currentDay = dt.getDate();
   const currentMonth = dt.getMonth();
   const currentYear = dt.getFullYear();
 
+  const currentDate = `${currentDay}.${currentMonth+1}.${currentYear}`;
+  
   month.innerText = `${dt.toLocaleDateString("en-us", {
     month: "long",
   })} ${currentYear}`;
@@ -60,8 +65,18 @@ function load() {
       newWeek.classList.remove("active");
     });
 
-    addNewItem.addEventListener("click", openModal);
+
+    const addIndex = document.querySelectorAll(".add");
+
+    for(let i = 0; i < addIndex.length ; i++) {
+      addIndex[i].addEventListener('click', function() {
+        openModal();
+        newIndex.value = i;
+      })
+    };
+    
   }
+
 
   for (let i = 0; i < currentMonthWeekCount + 1; i++) {
     const weekNum = document.createElement("div");
@@ -87,6 +102,7 @@ function weekCount(year, month_number) {
 function openModal() {
   newEventModal.style.display = "block";
   backDrop.style.display = "block";
+
 }
 
 function saveEvent() {
@@ -94,6 +110,7 @@ function saveEvent() {
     amount: newEventValue.value,
     date: newEventDate.value,
     description: newEventDescription.value,
+    index: newIndex.value
   });
 
   localStorage.setItem("events", JSON.stringify(events));

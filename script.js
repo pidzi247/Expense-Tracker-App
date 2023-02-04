@@ -1,9 +1,23 @@
+let navigate = 0;
 let events = localStorage.getItem("events")
   ? JSON.parse(localStorage.getItem("events"))
   : [];
+let monthNames = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+];
 
-const container = document.getElementById("container");
-const month = document.getElementById("date");
+const month = document.getElementById("header");
 const weeks = document.getElementById("weeks");
 const expenseItem = document.querySelector("#expensesPanel > .expenseItem");
 const weeksInfo = document.getElementById("weeksInfo");
@@ -14,22 +28,28 @@ const newEventDate = document.getElementById("eventDate");
 const newEventDescription = document.getElementById("description");
 const newIndex = document.getElementById("index");
 
-
 function load() {
   const dt = new Date();
+
+  if (navigate !== 0) {
+    dt.setMonth(new Date().getMonth() + navigate);
+  }
+
   const currentDay = dt.getDate();
   const currentMonth = dt.getMonth();
   const currentYear = dt.getFullYear();
 
-  const currentDate = `${currentDay}.${currentMonth+1}.${currentYear}`;
-  
-  month.innerText = `${dt.toLocaleDateString("en-us", {
-    month: "long",
-  })} ${currentYear}`;
+  document.getElementById(
+    "date"
+  ).textContent = `${monthNames[currentMonth]} ${currentYear}`;
+
+  weeksInfo.innerHTML = "";
+  weeks.innerHTML = "";
 
   const currentMonthWeekCount = weekCount(currentYear, currentMonth);
 
   weeks.style.gridTemplateColumns = `repeat(${currentMonthWeekCount + 1}, 1fr)`;
+  weeks.style.gridTemplateRows = `repeat(${currentMonthWeekCount + 1}, 1fr)`;
   weeksInfo.style.gridTemplateColumns = `repeat(${
     currentMonthWeekCount + 1
   }, 1fr)`;
@@ -38,6 +58,18 @@ function load() {
     const newWeek = document.createElement("div");
     const addNewItem = document.createElement("button");
     const zoomDetails = document.createElement("div");
+
+    const findIndex = events.filter((e) => e.index === (i - 1).toString());
+    console.log(findIndex);
+
+  
+    findIndex.forEach((item) => {
+      const newAmount = document.createElement("div");
+      newAmount.classList.add("amount");
+      newAmount.textContent = item.amount;
+      newWeek.appendChild(newAmount);
+    });
+
 
     if (
       (i !== 0 && i % (currentMonthWeekCount + 1) === 0) ||
@@ -65,18 +97,23 @@ function load() {
       newWeek.classList.remove("active");
     });
 
-
     const addIndex = document.querySelectorAll(".add");
 
-    for(let i = 0; i < addIndex.length ; i++) {
-      addIndex[i].addEventListener('click', function() {
+    for (let i = 0; i < addIndex.length; i++) {
+      let count = 0;
+      addIndex[i].addEventListener("click", function () {
         openModal();
-        newIndex.value = i;
-      })
-    };
-    
+        if (i < 5) {
+          newIndex.value = i;
+        } else if (i % 5 === 0 && i !== 0) {
+          count++;
+          newIndex.value = i + count;
+        } else {
+          newIndex.value = i + count + 1;
+        }
+      });
+    }
   }
-
 
   for (let i = 0; i < currentMonthWeekCount + 1; i++) {
     const weekNum = document.createElement("div");
@@ -102,7 +139,6 @@ function weekCount(year, month_number) {
 function openModal() {
   newEventModal.style.display = "block";
   backDrop.style.display = "block";
-
 }
 
 function saveEvent() {
@@ -110,7 +146,7 @@ function saveEvent() {
     amount: newEventValue.value,
     date: newEventDate.value,
     description: newEventDescription.value,
-    index: newIndex.value
+    index: newIndex.value,
   });
 
   localStorage.setItem("events", JSON.stringify(events));
@@ -121,9 +157,21 @@ function saveEvent() {
 function closeEvent() {
   backDrop.style.display = "none";
   newEventModal.style.display = "none";
+  newEventDate.value = "";
+  newEventDescription.value = "";
+  newEventValue.value = "";
 }
 
 function buttons() {
+  document.getElementById("prevButton").addEventListener("click", () => {
+    navigate--;
+    load();
+  });
+  document.getElementById("nextButton").addEventListener("click", () => {
+    navigate++;
+    load();
+  });
+
   document.getElementById("saveButton").addEventListener("click", saveEvent);
   document.getElementById("cancelButton").addEventListener("click", closeEvent);
 }

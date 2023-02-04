@@ -23,7 +23,14 @@
     <title>Document</title>
   </head>
   <body>
-    <div id="date"></div>
+    
+    <div id="header">
+      <div id="date"></div>
+      <div>
+        <button id="prevButton">Previous Month</button>
+        <button id="nextButton">Next Month</button>
+      </div>
+    </div>
     <div id="weeksInfo"></div>
     <div id="container">
       <div id="expensesPanel">
@@ -48,28 +55,36 @@
       </div>
       <div id="weeks"></div>
     </div>
+
     <div id="newEventModal">
       <h3>Add New Expense</h3>
+      <div>
+        <label for="expanseValue">Amount</label>
+        <input type="number" name="expenseValue" id="expenseValue" />
+      </div>
+      <div>
+        <label for="eventDate">Date</label>
+        <input type="text" name="eventDate" id="eventDate" />
+      </div>
 
-      <label for="expanseValue">Amount</label>
-      <input type="number" name="expenseValue" id="expenseValue" />
+      <div>
+        <label for="index">Index</label>
+        <input type="text" name="index" id="index" >
+      </div>
 
-      <label for="eventDate">Date</label>
-      <input type="text" name="eventDate" id="eventDate" />
+      <div>
+        <label for="description">Description</label>
+        <textarea
+          name="description"
+          id="description"
+          cols="20"
+          rows="10"
+        ></textarea>
+      </div>
 
-      <label for="index">Index</label>
-      <input type="text" name="index" id="index" >
-
-      <label for="description">Description</label>
-      <textarea
-        name="description"
-        id="description"
-        cols="20"
-        rows="10"
-      ></textarea>
-      
       <button id="saveButton">Save</button>
       <button id="cancelButton">Cancel</button>
+      
     </div>
     <div id="backDrop"></div>
   </body>

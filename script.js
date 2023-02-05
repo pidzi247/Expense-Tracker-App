@@ -59,17 +59,16 @@ function load() {
     const addNewItem = document.createElement("button");
     const zoomDetails = document.createElement("div");
 
-    const findIndex = events.filter((e) => e.index === (i - 1).toString());
-    console.log(findIndex);
-
-  
+    const findIndex = events.filter((e) => e.index === (i - 1) + "");
+    
     findIndex.forEach((item) => {
-      const newAmount = document.createElement("div");
-      newAmount.classList.add("amount");
-      newAmount.textContent = item.amount;
-      newWeek.appendChild(newAmount);
+      if(Number(item.date.split(".")[1])-1 === currentMonth) {
+        const newAmount = document.createElement("div");
+        newAmount.classList.add("amount");
+        newAmount.textContent = item.amount;
+        newWeek.appendChild(newAmount);
+      }
     });
-
 
     if (
       (i !== 0 && i % (currentMonthWeekCount + 1) === 0) ||

@@ -70,7 +70,6 @@ html {
 #expensesPanel {
   display: grid;
   grid-template-columns: repeat(1, 1fr);
-  grid-template-rows: repeat(6, 1fr);
   height: 100%;
   width: 20%;
   background-color: #1D1F20;

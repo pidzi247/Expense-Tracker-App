@@ -19,7 +19,7 @@ let monthNames = [
 
 const month = document.getElementById("header");
 const weeks = document.getElementById("weeks");
-const expenseItem = document.querySelector("#expensesPanel > .expenseItem");
+const expensePanel = document.getElementById("expensesPanel");
 const weeksInfo = document.getElementById("weeksInfo");
 const newEventModal = document.getElementById("newEventModal");
 const backDrop = document.getElementById("backDrop");
@@ -60,7 +60,6 @@ function load() {
     const zoomDetails = document.createElement("div");
 
     const findIndex = events.filter((e) => e.index === (i - 1) + "");
-    
     findIndex.forEach((item) => {
       if(Number(item.date.split(".")[1])-1 === currentMonth) {
         const newAmount = document.createElement("div");
@@ -87,8 +86,9 @@ function load() {
       newWeek.appendChild(zoomDetails);
 
       addNewItem.innerText = "+";
-    }
+      expensePanel.style.gridTemplateRows = `repeat(6, ${newWeek.getBoundingClientRect().height}px)`;
 
+    }
     newWeek.addEventListener("mouseover", () => {
       newWeek.classList.add("active");
     });

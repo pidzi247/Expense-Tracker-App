@@ -17,6 +17,8 @@ let monthNames = [
   "December",
 ];
 
+let total = 0;
+
 const month = document.getElementById("header");
 const weeks = document.getElementById("weeks");
 const expensePanel = document.getElementById("expensesPanel");
@@ -59,9 +61,10 @@ function load() {
     const addNewItem = document.createElement("button");
     const zoomDetails = document.createElement("div");
 
-    const findIndex = events.filter((e) => e.index === (i - 1) + "");
+    const findIndex = events.filter((e) => e.index === i - 1 + "");
+    
     findIndex.forEach((item) => {
-      if(Number(item.date.split(".")[1])-1 === currentMonth) {
+      if (Number(item.date.split(".")[1]) - 1 === currentMonth) {
         const newAmount = document.createElement("div");
         newAmount.classList.add("amount");
         newAmount.textContent = item.amount;
@@ -71,7 +74,7 @@ function load() {
 
     if (
       (i !== 0 && i % (currentMonthWeekCount + 1) === 0) ||
-      i > (currentMonthWeekCount + 1) * 6 - 6
+      i > (currentMonthWeekCount + 1) * 6 - (currentMonthWeekCount + 1)
     ) {
       newWeek.classList.add("newWeek");
       weeks.appendChild(newWeek);
@@ -86,8 +89,9 @@ function load() {
       newWeek.appendChild(zoomDetails);
 
       addNewItem.innerText = "+";
-      expensePanel.style.gridTemplateRows = `repeat(6, ${newWeek.getBoundingClientRect().height}px)`;
-
+      expensePanel.style.gridTemplateRows = `repeat(6, ${
+        newWeek.getBoundingClientRect().height
+      }px)`;
     }
     newWeek.addEventListener("mouseover", () => {
       newWeek.classList.add("active");
@@ -102,13 +106,26 @@ function load() {
       let count = 0;
       addIndex[i].addEventListener("click", function () {
         openModal();
-        if (i < 5) {
-          newIndex.value = i;
-        } else if (i % 5 === 0 && i !== 0) {
-          count++;
-          newIndex.value = i + count;
-        } else {
-          newIndex.value = i + count + 1;
+        if(currentMonthWeekCount < 6) {
+          if (i < 5) {
+            newIndex.value = i;
+          } else if (i % 5 === 0 && i !== 0) {
+            count = 1
+            newIndex.value = i + count;
+            count = 0
+          } else {
+            newIndex.value = i +1;
+          }
+        } else if(currentMonthWeekCount >= 6) {
+          if (i < 6) {
+            newIndex.value = i;
+          } else if (i % 6 === 0 && i !== 0) {
+            count = 1
+            newIndex.value = i + count;
+            count = 0
+          } else {
+            newIndex.value = i +1;
+          }
         }
       });
     }

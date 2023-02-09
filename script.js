@@ -1,3 +1,7 @@
+
+let totalExpenseItem = 0;
+let totalWeek = 0;
+let grandTotal = 0;
 let navigate = 0;
 let events = localStorage.getItem("events")
   ? JSON.parse(localStorage.getItem("events"))
@@ -16,8 +20,6 @@ let monthNames = [
   "November",
   "December",
 ];
-
-let total = 0;
 
 const month = document.getElementById("header");
 const weeks = document.getElementById("weeks");
@@ -63,12 +65,14 @@ function load() {
 
     const findIndex = events.filter((e) => e.index === i - 1 + "");
     
+    
     findIndex.forEach((item) => {
       if (Number(item.date.split(".")[1]) - 1 === currentMonth) {
         const newAmount = document.createElement("div");
         newAmount.classList.add("amount");
         newAmount.textContent = item.amount;
         newWeek.appendChild(newAmount);
+        totalExpenseItem += Number(item.amount);
       }
     });
 
@@ -77,6 +81,9 @@ function load() {
       i > (currentMonthWeekCount + 1) * 6 - (currentMonthWeekCount + 1)
     ) {
       newWeek.classList.add("newWeek");
+      newWeek.classList.add("total");
+      newWeek.textContent = totalExpenseItem;
+      totalExpenseItem = 0;
       weeks.appendChild(newWeek);
     } else {
       newWeek.classList.add("newWeek");
@@ -93,6 +100,12 @@ function load() {
         newWeek.getBoundingClientRect().height
       }px)`;
     }
+    
+    const totalIndex = document.querySelectorAll(".total");
+    if(i % currentMonthWeekCount === 0 && i !== 0) {
+
+    }
+   
     newWeek.addEventListener("mouseover", () => {
       newWeek.classList.add("active");
     });
@@ -107,6 +120,7 @@ function load() {
       addIndex[i].addEventListener("click", function () {
         openModal();
         if(currentMonthWeekCount < 6) {
+         
           if (i < 5) {
             newIndex.value = i;
           } else if (i % 5 === 0 && i !== 0) {

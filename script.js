@@ -113,36 +113,46 @@ function load() {
       newWeek.classList.remove("active");
     });
 
-    const addIndex = document.querySelectorAll(".add");
-
-    for (let i = 0; i < addIndex.length; i++) {
-      let count = 0;
-      addIndex[i].addEventListener("click", function () {
-        openModal();
-        if(currentMonthWeekCount < 6) {
-         
-          if (i < 5) {
-            newIndex.value = i;
-          } else if (i % 5 === 0 && i !== 0) {
-            count = 1
-            newIndex.value = i + count;
-            count = 0
-          } else {
-            newIndex.value = i +1;
-          }
-        } else if(currentMonthWeekCount >= 6) {
-          if (i < 6) {
-            newIndex.value = i;
-          } else if (i % 6 === 0 && i !== 0) {
-            count = 1
-            newIndex.value = i + count;
-            count = 0
-          } else {
-            newIndex.value = i +1;
-          }
+    
+  }
+  const addIndex = document.querySelectorAll(".add");
+  for (let j = 0; j < addIndex.length; j++) {
+    let count = 0;
+    console.log(j)
+    
+    addIndex[j].addEventListener("click", function () {
+      openModal();
+      
+      if(currentMonthWeekCount < 6) {
+        
+        if (j < 5) {
+          newIndex.value = j;
+        } else if( j >= 5 && j < 10){
+          newIndex.value = j + 1;
+        } else if( j >= 10 && j < 15){
+          newIndex.value = j + 2;
+        } else if( j >=15 && j < 20){
+          newIndex.value = j + 3;
+        } else {
+          newIndex.value = j + 4;
         }
-      });
-    }
+      } else if(currentMonthWeekCount >= 6) {
+        if (j < 6) {
+          newIndex.value = j;
+        } else if( j >= 6 && j < 12){
+          newIndex.value = j + 1;
+        } else if( j >= 12 && j < 18){
+          newIndex.value = j + 2;
+        } else if( j >= 18 && j < 24){
+          newIndex.value = j + 3;
+        } else if( j >= 24 && j < 30){
+          newIndex.value = j + 4;
+        }else {
+          newIndex.value = j + 5;
+        }
+      }
+    });
+    
   }
 
   for (let i = 0; i < currentMonthWeekCount + 1; i++) {

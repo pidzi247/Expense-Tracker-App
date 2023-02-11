@@ -1,4 +1,3 @@
-
 let totalExpenseItem = 0;
 let totalWeek = 0;
 let grandTotal = 0;
@@ -42,7 +41,7 @@ function load() {
   const currentDay = dt.getDate();
   const currentMonth = dt.getMonth();
   const currentYear = dt.getFullYear();
-
+  console.log(currentYear);
   document.getElementById(
     "date"
   ).textContent = `${monthNames[currentMonth]} ${currentYear}`;
@@ -64,10 +63,14 @@ function load() {
     const zoomDetails = document.createElement("div");
 
     const findIndex = events.filter((e) => e.index === i - 1 + "");
-    
-    
+
     findIndex.forEach((item) => {
-      if (Number(item.date.split(".")[1]) - 1 === currentMonth) {
+      const findDate = item.date.split(".");
+
+      if (
+        Number(findDate[1]) - 1 === currentMonth &&
+        Number(findDate[2]) === currentYear
+      ) {
         const newAmount = document.createElement("div");
         newAmount.classList.add("amount");
         newAmount.textContent = item.amount;
@@ -100,59 +103,51 @@ function load() {
         newWeek.getBoundingClientRect().height
       }px)`;
     }
-    
-    const totalIndex = document.querySelectorAll(".total");
-    if(i % currentMonthWeekCount === 0 && i !== 0) {
 
+    if (i % currentMonthWeekCount === 0 && i !== 0) {
     }
-   
+
     newWeek.addEventListener("mouseover", () => {
       newWeek.classList.add("active");
     });
     newWeek.addEventListener("mouseout", () => {
       newWeek.classList.remove("active");
     });
-
-    
   }
+
   const addIndex = document.querySelectorAll(".add");
+
   for (let j = 0; j < addIndex.length; j++) {
-    let count = 0;
-    console.log(j)
-    
     addIndex[j].addEventListener("click", function () {
       openModal();
-      
-      if(currentMonthWeekCount < 6) {
-        
+      if (currentMonthWeekCount < 6) {
         if (j < 5) {
           newIndex.value = j;
-        } else if( j >= 5 && j < 10){
+        } else if (j >= 5 && j < 10) {
           newIndex.value = j + 1;
-        } else if( j >= 10 && j < 15){
+        } else if (j >= 10 && j < 15) {
           newIndex.value = j + 2;
-        } else if( j >=15 && j < 20){
+        } else if (j >= 15 && j < 20) {
           newIndex.value = j + 3;
         } else {
           newIndex.value = j + 4;
         }
-      } else if(currentMonthWeekCount >= 6) {
+      } else if (currentMonthWeekCount >= 6) {
         if (j < 6) {
           newIndex.value = j;
-        } else if( j >= 6 && j < 12){
+        } else if (j >= 6 && j < 12) {
           newIndex.value = j + 1;
-        } else if( j >= 12 && j < 18){
+        } else if (j >= 12 && j < 18) {
           newIndex.value = j + 2;
-        } else if( j >= 18 && j < 24){
+        } else if (j >= 18 && j < 24) {
           newIndex.value = j + 3;
-        } else if( j >= 24 && j < 30){
+        } else if (j >= 24 && j < 30) {
           newIndex.value = j + 4;
-        }else {
+        } else {
           newIndex.value = j + 5;
         }
       }
     });
-    
   }
 
   for (let i = 0; i < currentMonthWeekCount + 1; i++) {

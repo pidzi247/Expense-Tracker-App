@@ -19,6 +19,9 @@ let monthNames = [
   "November",
   "December",
 ];
+let columnIndices = {
+  weekOne: [0,6,12,18,24],
+};
 
 const month = document.getElementById("header");
 const weeks = document.getElementById("weeks");
@@ -41,7 +44,6 @@ function load() {
   const currentDay = dt.getDate();
   const currentMonth = dt.getMonth();
   const currentYear = dt.getFullYear();
-  console.log(currentYear);
   document.getElementById(
     "date"
   ).textContent = `${monthNames[currentMonth]} ${currentYear}`;
@@ -56,17 +58,25 @@ function load() {
   weeksInfo.style.gridTemplateColumns = `repeat(${
     currentMonthWeekCount + 1
   }, 1fr)`;
-
+  
   for (let i = 1; i <= (currentMonthWeekCount + 1) * 6; i++) {
+    let weekTotalAmount = new Array(currentMonthWeekCount);
+    for(let j = 0; j < currentMonthWeekCount; j++) {
+      weekTotalAmount[j] = 0;
+    }
     const newWeek = document.createElement("div");
     const addNewItem = document.createElement("button");
     const zoomDetails = document.createElement("div");
 
-    const findIndex = events.filter((e) => e.index === i - 1 + "");
-
+    const findIndex = events.filter((e) => Number(e.index) === i - 1);
     findIndex.forEach((item) => {
       const findDate = item.date.split(".");
-
+      console.log(weekTotalAmount)
+      console.log(item.index)
+      console.log(columnIndices.weekOne.includes(Number(item.index)))
+      if(columnIndices.weekOne.includes(Number(item.index))) {
+        weekTotalAmount[0] += Number(item.amount);
+      }
       if (
         Number(findDate[1]) - 1 === currentMonth &&
         Number(findDate[2]) === currentYear

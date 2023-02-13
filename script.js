@@ -21,7 +21,11 @@ let monthNames = [
 ];
 let columnIndices = {
   weekOne: [0,6,12,18,24],
+  weekTwo: [1,7,13,19,25],
+  weekThree: [2,8,14,20,26]
 };
+let weekTotalAmount = [];
+
 
 const month = document.getElementById("header");
 const weeks = document.getElementById("weeks");
@@ -35,6 +39,7 @@ const newEventDescription = document.getElementById("description");
 const newIndex = document.getElementById("index");
 
 function load() {
+
   const dt = new Date();
 
   if (navigate !== 0) {
@@ -60,7 +65,6 @@ function load() {
   }, 1fr)`;
   
   for (let i = 1; i <= (currentMonthWeekCount + 1) * 6; i++) {
-    let weekTotalAmount = new Array(currentMonthWeekCount);
     for(let j = 0; j < currentMonthWeekCount; j++) {
       weekTotalAmount[j] = 0;
     }
@@ -71,12 +75,7 @@ function load() {
     const findIndex = events.filter((e) => Number(e.index) === i - 1);
     findIndex.forEach((item) => {
       const findDate = item.date.split(".");
-      console.log(weekTotalAmount)
-      console.log(item.index)
-      console.log(columnIndices.weekOne.includes(Number(item.index)))
-      if(columnIndices.weekOne.includes(Number(item.index))) {
-        weekTotalAmount[0] += Number(item.amount);
-      }
+     
       if (
         Number(findDate[1]) - 1 === currentMonth &&
         Number(findDate[2]) === currentYear
@@ -86,16 +85,23 @@ function load() {
         newAmount.textContent = item.amount;
         newWeek.appendChild(newAmount);
         totalExpenseItem += Number(item.amount);
+        grandTotal += Number(item.amount);
       }
     });
-
+    
+    console.log(i === (currentMonthWeekCount + 1) * 6)
     if (
       (i !== 0 && i % (currentMonthWeekCount + 1) === 0) ||
       i > (currentMonthWeekCount + 1) * 6 - (currentMonthWeekCount + 1)
     ) {
       newWeek.classList.add("newWeek");
       newWeek.classList.add("total");
-      newWeek.textContent = totalExpenseItem;
+      if(i === (currentMonthWeekCount + 1) * 6) {
+        newWeek.textContent = grandTotal;
+      } else {
+
+        newWeek.textContent = totalExpenseItem;
+      }
       totalExpenseItem = 0;
       weeks.appendChild(newWeek);
     } else {
@@ -126,6 +132,8 @@ function load() {
   }
 
   const addIndex = document.querySelectorAll(".add");
+  const totalIndex = document.querySelectorAll(".total");
+  console.log(totalIndex)
 
   for (let j = 0; j < addIndex.length; j++) {
     addIndex[j].addEventListener("click", function () {

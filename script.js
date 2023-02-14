@@ -38,6 +38,7 @@ const newEventDate = document.getElementById("eventDate");
 const newEventDescription = document.getElementById("description");
 const newIndex = document.getElementById("index");
 
+
 function load() {
 
   const dt = new Date();
@@ -63,11 +64,12 @@ function load() {
   weeksInfo.style.gridTemplateColumns = `repeat(${
     currentMonthWeekCount + 1
   }, 1fr)`;
+  for(let j = 0; j < currentMonthWeekCount; j++) {
+    weekTotalAmount[j] = 0;
+  }
   
   for (let i = 1; i <= (currentMonthWeekCount + 1) * 6; i++) {
-    for(let j = 0; j < currentMonthWeekCount; j++) {
-      weekTotalAmount[j] = 0;
-    }
+    
     const newWeek = document.createElement("div");
     const addNewItem = document.createElement("button");
     const zoomDetails = document.createElement("div");
@@ -75,31 +77,34 @@ function load() {
     const findIndex = events.filter((e) => Number(e.index) === i - 1);
     findIndex.forEach((item) => {
       const findDate = item.date.split(".");
-     
       if (
         Number(findDate[1]) - 1 === currentMonth &&
         Number(findDate[2]) === currentYear
       ) {
+        if(columnIndices.weekOne.includes(Number(item.index))) {
+          weekTotalAmount[0] += Number(item.amount)
+        }
+
         const newAmount = document.createElement("div");
         newAmount.classList.add("amount");
         newAmount.textContent = item.amount;
         newWeek.appendChild(newAmount);
         totalExpenseItem += Number(item.amount);
         grandTotal += Number(item.amount);
-      }
-    });
+        }
+      });
     
-    console.log(i === (currentMonthWeekCount + 1) * 6)
     if (
       (i !== 0 && i % (currentMonthWeekCount + 1) === 0) ||
       i > (currentMonthWeekCount + 1) * 6 - (currentMonthWeekCount + 1)
     ) {
+      console.log(weekTotalAmount)
+
       newWeek.classList.add("newWeek");
       newWeek.classList.add("total");
       if(i === (currentMonthWeekCount + 1) * 6) {
         newWeek.textContent = grandTotal;
       } else {
-
         newWeek.textContent = totalExpenseItem;
       }
       totalExpenseItem = 0;
@@ -132,8 +137,6 @@ function load() {
   }
 
   const addIndex = document.querySelectorAll(".add");
-  const totalIndex = document.querySelectorAll(".total");
-  console.log(totalIndex)
 
   for (let j = 0; j < addIndex.length; j++) {
     addIndex[j].addEventListener("click", function () {

@@ -22,10 +22,12 @@ let monthNames = [
 let columnIndices = {
   weekOne: [0,6,12,18,24],
   weekTwo: [1,7,13,19,25],
-  weekThree: [2,8,14,20,26]
+  weekThree: [2,8,14,20,26],
+  weekFour: [3,9,15,21,27],
+  weekFive: [4,10,16,22,28],
+  weekSix: [5,11,17,23,29]
 };
 let weekTotalAmount = [];
-
 
 const month = document.getElementById("header");
 const weeks = document.getElementById("weeks");
@@ -37,7 +39,6 @@ const newEventValue = document.getElementById("expenseValue");
 const newEventDate = document.getElementById("eventDate");
 const newEventDescription = document.getElementById("description");
 const newIndex = document.getElementById("index");
-
 
 function load() {
 
@@ -58,6 +59,8 @@ function load() {
   weeks.innerHTML = "";
 
   const currentMonthWeekCount = weekCount(currentYear, currentMonth);
+  const cells = (currentMonthWeekCount + 1) * 6;
+  console.log(cells);
 
   weeks.style.gridTemplateColumns = `repeat(${currentMonthWeekCount + 1}, 1fr)`;
   weeks.style.gridTemplateRows = `repeat(${currentMonthWeekCount + 1}, 1fr)`;
@@ -83,6 +86,16 @@ function load() {
       ) {
         if(columnIndices.weekOne.includes(Number(item.index))) {
           weekTotalAmount[0] += Number(item.amount)
+        } else if(columnIndices.weekTwo.includes(Number(item.index))) {
+          weekTotalAmount[1] += Number(item.amount)
+        } else if(columnIndices.weekThree.includes(Number(item.index))) {
+          weekTotalAmount[2] += Number(item.amount)
+        } else if(columnIndices.weekFour.includes(Number(item.index))) {
+          weekTotalAmount[3] += Number(item.amount)
+        } else if(columnIndices.weekFive.includes(Number(item.index))){
+          weekTotalAmount[4] += Number(item.amount)
+        } else {
+          weekTotalAmount[5] += Number(item.amount)
         }
 
         const newAmount = document.createElement("div");
@@ -99,14 +112,31 @@ function load() {
       i > (currentMonthWeekCount + 1) * 6 - (currentMonthWeekCount + 1)
     ) {
       console.log(weekTotalAmount)
-
       newWeek.classList.add("newWeek");
       newWeek.classList.add("total");
-      if(i === (currentMonthWeekCount + 1) * 6) {
-        newWeek.textContent = grandTotal;
-      } else {
-        newWeek.textContent = totalExpenseItem;
+      
+      newWeek.textContent = totalExpenseItem;
+
+      
+      if(i === (currentMonthWeekCount + 1) * 6 - 5) {
+        newWeek.textContent = weekTotalAmount[0];
       }
+      if(i === (currentMonthWeekCount + 1) * 6 - 4) {
+        newWeek.textContent = weekTotalAmount[1];
+      }
+      if(i === (currentMonthWeekCount + 1) * 6 - 3) {
+        newWeek.textContent = weekTotalAmount[2];
+      }
+      if(i === (currentMonthWeekCount + 1) * 6 - 2) {
+        newWeek.textContent = weekTotalAmount[3];
+      }
+      if(i === (currentMonthWeekCount + 1) * 6 - 1) {
+        newWeek.textContent = weekTotalAmount[4];
+      }
+      if(i === (currentMonthWeekCount + 1) * 6 ) {
+        newWeek.textContent = grandTotal;
+      }
+      
       totalExpenseItem = 0;
       weeks.appendChild(newWeek);
     } else {
@@ -221,10 +251,12 @@ function closeEvent() {
 function buttons() {
   document.getElementById("prevButton").addEventListener("click", () => {
     navigate--;
+    grandTotal = 0;
     load();
   });
   document.getElementById("nextButton").addEventListener("click", () => {
     navigate++;
+    grandTotal = 0;
     load();
   });
 

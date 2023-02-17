@@ -78,7 +78,7 @@ html {
 #header div button {
   width: 200px;
   margin: 20px;
-  background-color: rgba(113, 20, 35, 0.8);
+  background-color: rgba(113, 20, 35, 0.6);
   border-radius: 10px;
   border: 1px black solid;
   color: white;
@@ -86,8 +86,8 @@ html {
 }
 
 .amount {
+  text-align: center;
   color: #8e4c9e;
-  background-color: white;
 }
 
 .expenseItem {
@@ -107,6 +107,11 @@ html {
   border-right: 1px solid rgba(0, 0, 0, 0.5);
   border-bottom: 1px solid rgba(113, 20, 35, 0.5);
   transition: all 300ms ease-in-out;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
 }
 
 .add {
@@ -120,6 +125,19 @@ html {
   text-align: center;
   font-size: 22px;
   transition: opacity 350ms ease-in-out;
+}
+
+.total {
+  font-size: 18px;
+  color: white;
+  background-color: rgba(113, 20, 35, 0.3);
+}
+
+.grandTotal {
+  font-size: 22px;
+  color: white;
+  background-color: rgba(113, 20, 35, 0.5);
+  text-decoration: underline double;
 }
 
 .fa-solid {

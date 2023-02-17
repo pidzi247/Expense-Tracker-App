@@ -20,12 +20,12 @@ let monthNames = [
   "December",
 ];
 let columnIndices = {
-  weekOne: [0,6,12,18,24],
-  weekTwo: [1,7,13,19,25],
-  weekThree: [2,8,14,20,26],
-  weekFour: [3,9,15,21,27],
-  weekFive: [4,10,16,22,28],
-  weekSix: [5,11,17,23,29]
+  weekOne: [0, 6, 12, 18, 24],
+  weekTwo: [1, 7, 13, 19, 25],
+  weekThree: [2, 8, 14, 20, 26],
+  weekFour: [3, 9, 15, 21, 27],
+  weekFive: [4, 10, 16, 22, 28],
+  weekSix: [5, 11, 17, 23, 29],
 };
 let weekTotalAmount = [];
 
@@ -41,7 +41,6 @@ const newEventDescription = document.getElementById("description");
 const newIndex = document.getElementById("index");
 
 function load() {
-
   const dt = new Date();
 
   if (navigate !== 0) {
@@ -60,19 +59,17 @@ function load() {
 
   const currentMonthWeekCount = weekCount(currentYear, currentMonth);
   const cells = (currentMonthWeekCount + 1) * 6;
-  console.log(cells);
 
   weeks.style.gridTemplateColumns = `repeat(${currentMonthWeekCount + 1}, 1fr)`;
   weeks.style.gridTemplateRows = `repeat(${currentMonthWeekCount + 1}, 1fr)`;
   weeksInfo.style.gridTemplateColumns = `repeat(${
     currentMonthWeekCount + 1
   }, 1fr)`;
-  for(let j = 0; j < currentMonthWeekCount; j++) {
+  for (let j = 0; j < currentMonthWeekCount; j++) {
     weekTotalAmount[j] = 0;
   }
-  
+
   for (let i = 1; i <= (currentMonthWeekCount + 1) * 6; i++) {
-    
     const newWeek = document.createElement("div");
     const addNewItem = document.createElement("button");
     const zoomDetails = document.createElement("div");
@@ -84,59 +81,66 @@ function load() {
         Number(findDate[1]) - 1 === currentMonth &&
         Number(findDate[2]) === currentYear
       ) {
-        if(columnIndices.weekOne.includes(Number(item.index))) {
-          weekTotalAmount[0] += Number(item.amount)
-        } else if(columnIndices.weekTwo.includes(Number(item.index))) {
-          weekTotalAmount[1] += Number(item.amount)
-        } else if(columnIndices.weekThree.includes(Number(item.index))) {
-          weekTotalAmount[2] += Number(item.amount)
-        } else if(columnIndices.weekFour.includes(Number(item.index))) {
-          weekTotalAmount[3] += Number(item.amount)
-        } else if(columnIndices.weekFive.includes(Number(item.index))){
-          weekTotalAmount[4] += Number(item.amount)
+        if (columnIndices.weekOne.includes(Number(item.index))) {
+          weekTotalAmount[0] += Number(item.amount);
+        } else if (columnIndices.weekTwo.includes(Number(item.index))) {
+          weekTotalAmount[1] += Number(item.amount);
+        } else if (columnIndices.weekThree.includes(Number(item.index))) {
+          weekTotalAmount[2] += Number(item.amount);
+        } else if (columnIndices.weekFour.includes(Number(item.index))) {
+          weekTotalAmount[3] += Number(item.amount);
+        } else if (columnIndices.weekFive.includes(Number(item.index))) {
+          weekTotalAmount[4] += Number(item.amount);
         } else {
-          weekTotalAmount[5] += Number(item.amount)
+          weekTotalAmount[5] += Number(item.amount);
         }
-
         const newAmount = document.createElement("div");
-        newAmount.classList.add("amount");
-        newAmount.textContent = item.amount;
-        newWeek.appendChild(newAmount);
+        const moreValues = document.createElement("div");
+        if (newWeek.children.length > 4) {
+          newWeek.removeChild(newWeek.lastElementChild);
+          moreValues.classList.add("amount");
+          moreValues.textContent = "...";
+          newWeek.appendChild(moreValues);
+        } else {
+          newAmount.classList.add("amount");
+          newAmount.textContent = item.amount;
+          newWeek.appendChild(newAmount);
+        }
         totalExpenseItem += Number(item.amount);
         grandTotal += Number(item.amount);
-        }
-      });
-    
+      }
+    });
+
     if (
       (i !== 0 && i % (currentMonthWeekCount + 1) === 0) ||
       i > (currentMonthWeekCount + 1) * 6 - (currentMonthWeekCount + 1)
     ) {
-      console.log(weekTotalAmount)
-      newWeek.classList.add("newWeek");
-      newWeek.classList.add("total");
-      
       newWeek.textContent = totalExpenseItem;
 
-      
-      if(i === (currentMonthWeekCount + 1) * 6 - 5) {
-        newWeek.textContent = weekTotalAmount[0];
-      }
-      if(i === (currentMonthWeekCount + 1) * 6 - 4) {
-        newWeek.textContent = weekTotalAmount[1];
-      }
-      if(i === (currentMonthWeekCount + 1) * 6 - 3) {
-        newWeek.textContent = weekTotalAmount[2];
-      }
-      if(i === (currentMonthWeekCount + 1) * 6 - 2) {
-        newWeek.textContent = weekTotalAmount[3];
-      }
-      if(i === (currentMonthWeekCount + 1) * 6 - 1) {
-        newWeek.textContent = weekTotalAmount[4];
-      }
-      if(i === (currentMonthWeekCount + 1) * 6 ) {
+      if (i === (currentMonthWeekCount + 1) * 6) {
+        newWeek.classList.add("newWeek");
+        newWeek.classList.add("grandTotal");
         newWeek.textContent = grandTotal;
+      } else {
+        newWeek.classList.add("newWeek");
+        newWeek.classList.add("total");
+        if (i === (currentMonthWeekCount + 1) * 6 - 5) {
+          newWeek.textContent = weekTotalAmount[0];
+        }
+        if (i === (currentMonthWeekCount + 1) * 6 - 4) {
+          newWeek.textContent = weekTotalAmount[1];
+        }
+        if (i === (currentMonthWeekCount + 1) * 6 - 3) {
+          newWeek.textContent = weekTotalAmount[2];
+        }
+        if (i === (currentMonthWeekCount + 1) * 6 - 2) {
+          newWeek.textContent = weekTotalAmount[3];
+        }
+        if (i === (currentMonthWeekCount + 1) * 6 - 1) {
+          newWeek.textContent = weekTotalAmount[4];
+        }
       }
-      
+
       totalExpenseItem = 0;
       weeks.appendChild(newWeek);
     } else {
@@ -171,6 +175,7 @@ function load() {
   for (let j = 0; j < addIndex.length; j++) {
     addIndex[j].addEventListener("click", function () {
       openModal();
+
       if (currentMonthWeekCount < 6) {
         if (j < 5) {
           newIndex.value = j;

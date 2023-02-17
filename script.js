@@ -34,6 +34,7 @@ const weeks = document.getElementById("weeks");
 const expensePanel = document.getElementById("expensesPanel");
 const weeksInfo = document.getElementById("weeksInfo");
 const newEventModal = document.getElementById("newEventModal");
+const eventDetailModal = document.getElementById("eventDetailModal");
 const backDrop = document.getElementById("backDrop");
 const newEventValue = document.getElementById("expenseValue");
 const newEventDate = document.getElementById("eventDate");
@@ -174,7 +175,7 @@ function load() {
 
   for (let j = 0; j < addIndex.length; j++) {
     addIndex[j].addEventListener("click", function () {
-      openModal();
+      openAddModal();
 
       if (currentMonthWeekCount < 6) {
         if (j < 5) {
@@ -227,7 +228,7 @@ function weekCount(year, month_number) {
   return Math.ceil(used / 7);
 }
 
-function openModal() {
+function openAddModal() {
   newEventModal.style.display = "block";
   backDrop.style.display = "block";
 }

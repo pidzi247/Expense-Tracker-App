@@ -126,6 +126,10 @@ html {
   gap: 5px;
 }
 
+.newWeek.total div{
+  display: none;
+}
+
 .add {
   opacity: 0;
   border-radius: 50%;

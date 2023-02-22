@@ -76,6 +76,7 @@ function load() {
     const zoomDetails = document.createElement("div");
 
     const findIndex = events.filter((e) => Number(e.index) === i - 1);
+    console.log(findIndex)
     findIndex.forEach((item) => {
       const findDate = item.date.split(".");
       if (

@@ -123,6 +123,8 @@ function load() {
         newWeek.classList.add("grandTotal");
         newWeek.textContent = grandTotal;
       } else {
+        zoomDetails.classList.add("fa-solid");
+        zoomDetails.classList.add("fa-magnifying-glass-plus");
         newWeek.classList.add("newWeek");
         newWeek.classList.add("total");
         if (i === (currentMonthWeekCount + 1) * 6 - 5) {
@@ -143,6 +145,7 @@ function load() {
       }
 
       totalExpenseItem = 0;
+      newWeek.appendChild(zoomDetails);
       weeks.appendChild(newWeek);
     } else {
       newWeek.classList.add("newWeek");
@@ -169,6 +172,8 @@ function load() {
     newWeek.addEventListener("mouseout", () => {
       newWeek.classList.remove("active");
     });
+
+    
   }
 
   const addIndex = document.querySelectorAll(".add");
@@ -207,6 +212,24 @@ function load() {
     });
   }
 
+  const magnifierIcon = document.querySelectorAll(".fa-magnifying-glass-plus");
+    for(let i = 0; i < magnifierIcon.length; i++) {
+      
+      const findIndex = events.filter((e) => Number(e.index) === i);
+      magnifierIcon[i].addEventListener('click', function() {
+        
+        findIndex.forEach((item) => {
+          const newDiv = document.createElement("div");
+          newDiv.textContent = item.date;
+          eventDetailModal.appendChild(newDiv);
+        });
+        openDetailsModal();
+  
+      })
+    }
+
+
+
   for (let i = 0; i < currentMonthWeekCount + 1; i++) {
     const weekNum = document.createElement("div");
     weekNum.classList.add("weekNum");
@@ -230,6 +253,11 @@ function weekCount(year, month_number) {
 
 function openAddModal() {
   newEventModal.style.display = "block";
+  backDrop.style.display = "block";
+}
+
+function openDetailsModal() {
+  eventDetailModal.style.display = "block";
   backDrop.style.display = "block";
 }
 
@@ -269,6 +297,5 @@ function buttons() {
   document.getElementById("saveButton").addEventListener("click", saveEvent);
   document.getElementById("cancelButton").addEventListener("click", closeEvent);
 }
-
 buttons();
 load();

@@ -76,7 +76,7 @@ function load() {
     const zoomDetails = document.createElement("div");
 
     const findIndex = events.filter((e) => Number(e.index) === i - 1);
-    console.log(findIndex)
+    console.log(findIndex);
     findIndex.forEach((item) => {
       const findDate = item.date.split(".");
       if (
@@ -173,8 +173,6 @@ function load() {
     newWeek.addEventListener("mouseout", () => {
       newWeek.classList.remove("active");
     });
-
-    
   }
 
   const addIndex = document.querySelectorAll(".add");
@@ -214,22 +212,29 @@ function load() {
   }
 
   const magnifierIcon = document.querySelectorAll(".fa-magnifying-glass-plus");
-    for(let i = 0; i < magnifierIcon.length; i++) {
-      
-      const findIndex = events.filter((e) => Number(e.index) === i);
-      magnifierIcon[i].addEventListener('click', function() {
-        
-        findIndex.forEach((item) => {
-          const newDiv = document.createElement("div");
-          newDiv.textContent = item.date;
-          eventDetailModal.appendChild(newDiv);
-        });
-        openDetailsModal();
-  
-      })
-    }
+  for (let i = 0; i < magnifierIcon.length; i++) {
+    const findIndex = events.filter((e) => Number(e.index) === i);
+    magnifierIcon[i].addEventListener("click", function () {
+      findIndex.forEach((item) => {
+        const newDivContainer = document.createElement("div");
+        const newDivDate = document.createElement("div");
+        const newDivAmmount = document.createElement("div");
+        const newDivDescription = document.createElement("div");
 
+        newDivContainer.classList.add("modalDetails");
 
+        newDivDate.textContent = item.date;
+        newDivAmmount.textContent = item.ammount;
+        newDivDescription.textContent = item.description;
+
+        eventDetailModal.appendChild(newDivContainer);
+        newDivContainer.appendChild(newDivDate);
+        newDivContainer.appendChild(newDivAmmount);
+        newDivContainer.appendChild(newDivDescription);
+      });
+      openDetailsModal();
+    });
+  }
 
   for (let i = 0; i < currentMonthWeekCount + 1; i++) {
     const weekNum = document.createElement("div");
@@ -298,5 +303,6 @@ function buttons() {
   document.getElementById("saveButton").addEventListener("click", saveEvent);
   document.getElementById("cancelButton").addEventListener("click", closeEvent);
 }
+
 buttons();
 load();

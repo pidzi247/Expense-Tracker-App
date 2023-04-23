@@ -37,8 +37,8 @@ html {
   left: 0%;
   background-color: beige;
   border-radius: 15px;
-  height: 80%;
-  width: 80%;
+  height: max-content;
+  width: max-content;
 }
 
 #header {

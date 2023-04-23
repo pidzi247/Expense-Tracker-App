@@ -223,9 +223,9 @@ function load() {
 
         newDivContainer.classList.add("modalDetails");
 
-        newDivDate.textContent = item.date;
-        newDivAmmount.textContent = item.ammount;
-        newDivDescription.textContent = item.description;
+        newDivDate.textContent = `Date: ${item.date}`;
+        newDivAmmount.textContent = `Value: ${item.amount}`;
+        newDivDescription.textContent = `Description: ${item.description}`;
 
         eventDetailModal.appendChild(newDivContainer);
         newDivContainer.appendChild(newDivDate);

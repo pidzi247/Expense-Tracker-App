@@ -288,6 +288,11 @@ function closeEvent() {
   newEventValue.value = "";
 }
 
+function closeDetail() {
+  eventDetailModal.style.display = "none";
+  backDrop.style.display = "none";
+}
+
 function buttons() {
   document.getElementById("prevButton").addEventListener("click", () => {
     navigate--;
@@ -302,6 +307,7 @@ function buttons() {
 
   document.getElementById("saveButton").addEventListener("click", saveEvent);
   document.getElementById("cancelButton").addEventListener("click", closeEvent);
+  document.getElementById("closeButton").addEventListener("click", closeDetail);
 }
 
 buttons();

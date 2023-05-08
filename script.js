@@ -48,7 +48,6 @@ function load() {
     dt.setMonth(new Date().getMonth() + navigate);
   }
 
-  const currentDay = dt.getDate();
   const currentMonth = dt.getMonth();
   const currentYear = dt.getFullYear();
   document.getElementById(
@@ -59,13 +58,13 @@ function load() {
   weeks.innerHTML = "";
 
   const currentMonthWeekCount = weekCount(currentYear, currentMonth);
-  const cells = (currentMonthWeekCount + 1) * 6;
 
   weeks.style.gridTemplateColumns = `repeat(${currentMonthWeekCount + 1}, 1fr)`;
   weeks.style.gridTemplateRows = `repeat(${currentMonthWeekCount + 1}, 1fr)`;
   weeksInfo.style.gridTemplateColumns = `repeat(${
     currentMonthWeekCount + 1
   }, 1fr)`;
+  
   for (let j = 0; j < currentMonthWeekCount; j++) {
     weekTotalAmount[j] = 0;
   }
@@ -98,6 +97,7 @@ function load() {
         }
         const newAmount = document.createElement("div");
         const moreValues = document.createElement("div");
+        
         if (newWeek.children.length > 4) {
           newWeek.removeChild(newWeek.lastElementChild);
           moreValues.classList.add("amount");

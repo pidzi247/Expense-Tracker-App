@@ -111,6 +111,7 @@ html {
   border-bottom: 1px solid rgba(113, 20, 35, 0.5);
   display: flex;
   align-items: center;
+  overflow: hidden;
 }
 
 #weeks {
@@ -150,13 +151,13 @@ html {
 
 .total {
   font-size: 18px;
-  color: white;
+  color: #8e4c9e;
   background-color: rgba(113, 20, 35, 0.3);
 }
 
 .grandTotal {
   font-size: 22px;
-  color: white;
+  color: #8e4c9e;
   background-color: rgba(113, 20, 35, 0.5);
   text-decoration: underline double;
 }
